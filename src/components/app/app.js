@@ -2,22 +2,28 @@ import React, { Component } from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import ErrorButton from '../error-button';
 import ErrorBoundry from '../error-boundry';
+import ItemDetails, { Record } from "../item-details/item-details";
 
-import Row from '../Row';
-import SwapiService from '../../services/swapi-service';
-import ItemDetails, { Record } from '../item-details/item-details';
+import SwapiService from "../../services/swapi-service";
+
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList
+} from '../sw-components';
 
 import './app.css';
-import ItemList from '../item-list/item-list';
 
 export default class App extends Component {
 
   swapiService = new SwapiService();
 
   state = {
-    showRandomPlanet: true,
+    showRandomPlanet: true
   };
 
   toggleRandomPlanet = () => {
@@ -39,16 +45,17 @@ export default class App extends Component {
       getPersonImage,
       getStarshipImage,
       getAllPeople,
-      getAllPlanets,
-    } = this.swapiService;
+      getAllPlanets } = this.swapiService;
 
     const personDetails = (
       <ItemDetails
         itemId={11}
         getData={getPerson}
-        getImageUrl={getPersonImage}>
-        <Record field='gender' lebal='Gender' />
-        <Record field='eyeColor' lebal='Eye Color' />
+        getImageUrl={getPersonImage} >
+
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+
       </ItemDetails>
     );
 
@@ -62,7 +69,6 @@ export default class App extends Component {
         <Record field="length" label="Length" />
         <Record field="costInCredits" label="Cost" />
       </ItemDetails>
-
     );
 
     return (
@@ -70,17 +76,17 @@ export default class App extends Component {
         <div className="stardb-app">
           <Header />
 
-          <ItemList
-            getData={getAllPeople}
-            onItemSelected={() => { }}>
-            {(name) => <span>{name}</span>}
-          </ItemList>
+          <PersonDetails itemId={11} />
 
-          <ItemList
-            getData={getAllPlanets}
-            onItemSelected={() => { }}>
-            {(name) => <span>{name}</span>}
-          </ItemList>
+          <PlanetDetails itemId={5} />
+
+          <StarshipDetails itemId={9} />
+
+          <PersonList />
+
+          <StarshipList />
+
+          <PlanetList />
 
         </div>
       </ErrorBoundry>
@@ -88,48 +94,3 @@ export default class App extends Component {
   }
 }
 
-/* structure
-
- <App
-      <newSwapiService getPerson getStarship getStarshipImage getPersonImage>
-
-      const personDetails =
-        (<itemDetails  itemId = {9} getData = {getPerson} getImageUrl ={getPersonImage}
-          <Record field = '' lebel = ''>
-        >)
-      const starshipDeteils =
-        (<<itemDetails  itemId = {5} getData = {getStarship} getImageUrl = {getStarshipImage}
-          <Record field = '' lebel = ''>
-        >)
-      const planet = <RandomPlanet>
-
-      return(
-          {planet}
-          <Row left = {personDetails} Right = {starshipDeteils}>
-      )
-  >
-
- <itemDetails
-      const { itemId, getData, getImageUrl } = this.props
-      const Record = ({field, lebal, item}) return ({label},{item[field]})
-      return (
-        src = {image}
-        {name}
-        {React.Children.map(this.props.children, (child) => {
-              return React.cloneElement(child, { item });
-            });
-        }
-      )
-  >
-
- <People-pege>
- <item-list {withData}
-  const { data, onItemSelected, children: renderLabel } = props
-  const { getAllPeople } = new SwapiService()
-  export default withData(ItemList, getAllPeople)
-  >
-
- <random-planet>
- <Row>
- <SwapiService>
- */
